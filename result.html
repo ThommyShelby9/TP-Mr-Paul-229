@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Résultats</h1>
+  <table id="productTable">
+    <tr>
+      <th>Nom du produit</th>
+      <th>Prix unitaire</th>
+      <th>Stock</th>
+      <th>Prix total</th>
+      <th>Action</th>
+    </tr>
+  </table>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var productsJSON = localStorage.getItem("products");
+
+      var products = JSON.parse(productsJSON) || [];
+
+      var table = document.getElementById("productTable");
+
+      function addProductToTable(product) {
+        var row = table.insertRow();
+
+        var nameCell = row.insertCell();
+        nameCell.innerText = product.name;
+
+        var priceCell = row.insertCell();
+        priceCell.innerText = product.price;
+
+        var stockCell = row.insertCell();
+        stockCell.innerText = product.stock;
+
+        var totalPriceCell = row.insertCell();
+        totalPriceCell.innerText = product.totalPrice;
+
+        var deleteCell = row.insertCell();
+        var deleteButton = document.createElement("button");
+        deleteButton.innerText = "Supprimer";
+        deleteButton.addEventListener("click", function () {
+          deleteProduct(row);
+
+        });
+        deleteCell.appendChild(deleteButton);
+      }
+
+      products.forEach(function (product) {
+        addProductToTable(product);
+      });
+      function deleteProduct(row) {
+        table.deleteRow(row.rowIndex);
+
+        products.splice(row.rowIndex - 1, 1);
+
+        var updatedProductsJSON = JSON.stringify(products);
+
+        localStorage.setItem("products", updatedProductsJSON);
+      }
+    });
+  </script>
+  <script src="mrpaul.js"></script>
+</body>
+
+
+
+</html>

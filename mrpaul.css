@@ -1,0 +1,11 @@
+.boss{
+    justify-content: center;
+    text-align: center;
+    background-color: aliceblue;
+    line-height: 50px;
+}
+
+#task-list li .delete-button {
+    color: red;
+    cursor: pointer;
+  }
